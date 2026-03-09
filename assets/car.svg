@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="100%" height="100%">
+    <defs>
+        <!-- Gradients -->
+        <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#2a3340" />
+            <stop offset="100%" stop-color="#161b22" />
+        </linearGradient>
+        <linearGradient id="glassGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#58a6ff" />
+            <stop offset="100%" stop-color="#1f6feb" />
+        </linearGradient>
+    </defs>
+
+    <!-- Car Silhouette -->
+    <path d="M 40 80 Q 30 80 20 70 L 10 50 L 50 40 L 100 20 L 250 20 L 320 40 L 370 50 Q 380 60 380 75 L 380 80 Z" fill="url(#bodyGrad)" stroke="#30363d" stroke-width="3" />
+    
+    <!-- Windows -->
+    <path d="M 120 25 L 240 25 L 290 40 L 110 40 Z" fill="url(#glassGrad)" opacity="0.8" stroke="#30363d" stroke-width="1.5" />
+    <path d="M 115 25 L 110 40" stroke="#30363d" stroke-width="3" /> <!-- A pillar -->
+    <path d="M 200 25 L 205 40" stroke="#30363d" stroke-width="3" /> <!-- B pillar -->
+
+    <!-- Headlight / Taillight -->
+    <path d="M 370 55 L 380 65 L 380 75 Q 360 70 370 55" fill="#f85149" /> <!-- Tail -->
+    <path d="M 20 60 L 10 70 L 20 75 Z" fill="#c9d1d9" filter="drop-shadow(0 0 5px #c9d1d9)" /> <!-- Headlight -->
+
+    <!-- Neon Underglow -->
+    <rect x="50" y="80" width="280" height="4" fill="#58a6ff" opacity="0.8" filter="drop-shadow(0 4px 6px #58a6ff)" />
+
+    <!-- Wheels Base (Dark holes) -->
+    <circle cx="80" cy="80" r="22" fill="#000" />
+    <circle cx="300" cy="80" r="22" fill="#000" />
+    
+    <!-- Outer rims -->
+    <circle cx="80" cy="80" r="18" fill="none" stroke="#8b949e" stroke-width="3" />
+    <circle cx="300" cy="80" r="18" fill="none" stroke="#8b949e" stroke-width="3" />
+    
+    <!-- Fake Wheel Spokes for movement illusion -->
+    <path d="M 80 62 L 80 98 M 62 80 L 98 80" stroke="#8b949e" stroke-width="4" />
+    <path d="M 300 62 L 300 98 M 282 80 L 318 80" stroke="#8b949e" stroke-width="4" />
+</svg>
