@@ -144,7 +144,3 @@ CHRIST (Deemed to be University)
 
 GitHub  
 https://github.com/KUKI-Boi
-
----
-
-⭐ If you find this project useful, feel free to **star the repository**.
