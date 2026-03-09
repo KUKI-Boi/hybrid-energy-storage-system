@@ -37,11 +37,11 @@ Power Source
       ▼
 Energy Management Controller
       │
- ┌───────────────┬───────────────┐
+ ┌───────────────┬
  ▼               ▼
 Battery       Supercapacitor
 (Energy)        (Power)
- └───────────────┬───────────────┘
+ └───────────────┬
                  ▼
                Load
 ```
