@@ -106,6 +106,7 @@ body {
     flex-direction: column;
     padding: var(--gutter);
     overflow-y: auto;
+    min-width: 260px; /* Prevent too much compression */
 }
 
 #viz-area {
@@ -292,6 +293,19 @@ button:active {
     align-items: center;
     justify-content: center;
     min-height: 200px;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.circuit-container svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.gauge-svg-container svg {
+    max-width: 100%;
+    height: 100%;
 }
 
 .contribution-summary {
@@ -548,13 +562,19 @@ button:active {
 
 /* RESPONSIVE MEDIA QUERIES */
 
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
+    #workspace {
+        grid-template-columns: 280px 1fr;
+    }
+}
+
+@media (max-width: 1100px) {
     #diagnostic-grid {
         grid-template-columns: 1fr 1fr;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     body, #app {
         height: auto;
         min-height: 100vh;
@@ -570,19 +590,24 @@ button:active {
     }
 
     #sidebar {
+        grid-column: 1;
         grid-row: 2; /* Fix order: Animation (1), Controls (2), Stats (3) */
         width: 100%;
         border-right: none;
         border-bottom: 1px solid var(--border-color);
+        padding: 30px var(--gutter);
     }
 
     #main-header {
         position: sticky;
         top: 0;
+        z-index: 1000;
         flex-wrap: wrap;
         height: auto;
-        padding: 10px var(--gutter);
-        gap: 10px;
+        padding: 15px var(--gutter);
+        gap: 15px;
+        background: var(--bg-color);
+        backdrop-filter: blur(10px);
     }
 
     .header-right {
@@ -591,20 +616,24 @@ button:active {
     }
 
     #viz-area {
+        grid-column: 1;
         grid-row: 1;
         width: 100%;
-        height: 300px;
-        min-height: 300px;
+        height: 350px;
+        min-height: 350px;
     }
 
     #diagnostic-grid {
+        grid-column: 1;
         grid-row: 3;
         grid-template-columns: 1fr;
         overflow: visible;
+        background: none;
     }
 
     .diag-card {
         min-height: auto;
+        border-bottom: 1px solid var(--border-color);
     }
 
     .gauges-flex {
