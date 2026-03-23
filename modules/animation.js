@@ -105,15 +105,26 @@ export class Animation {
     }
 
     drawCar(vehicle, dt) {
-        let carWidth = 360;
-        let carHeight = 108;
-        let carX = 150;
+        // Base dimensions (Desktop)
+        let baseWidth = 360;
+        let baseHeight = 108;
+        
+        // Dynamic Scaling for Mobile
+        // Aim for car to take up about 75% of width if screen is small
+        let scale = 1.0;
+        if (this.width < 500) {
+            scale = (this.width * 0.75) / baseWidth;
+        }
+        
+        let carWidth = baseWidth * scale;
+        let carHeight = baseHeight * scale;
+        
+        // Centered or Offset Position
+        let carX = this.width < 500 ? (this.width - carWidth) / 2 : 150;
         let carYBase = this.height - carHeight - 50;
 
         // Suspension Oscillation
-        // Subtle vertical movement based on acceleration and speed
         let osc = Math.sin(this.time * 8) * (Math.abs(vehicle.acceleration) * 0.2);
-        // Squat/Dive Pitch
         let pitch = vehicle.acceleration * -0.5;
 
         // Final position
@@ -132,27 +143,27 @@ export class Animation {
 
         // Brake Light Activation
         if (vehicle.brake > 0) {
-            this.drawBrakeLight(-carWidth / 2 + 5, -carHeight / 2 + 35);
+            this.drawBrakeLight((-carWidth / 2 + 5 * scale), (-carHeight / 2 + 35 * scale), scale);
         }
 
         // Draw Separate Rotating Wheels
         let omega = vehicle.speed / 0.3;
         this.wheelRotation += omega * dt;
 
-        let wheelRadius = 22 * 0.9;
-        this.drawWheel(-108, 18, wheelRadius);
-        this.drawWheel(90, 18, wheelRadius);
+        let wheelRadius = 22 * 0.9 * scale;
+        this.drawWheel(-108 * scale, 18 * scale, wheelRadius);
+        this.drawWheel(90 * scale, 18 * scale, wheelRadius);
 
         this.ctx.restore();
     }
 
-    drawBrakeLight(x, y) {
+    drawBrakeLight(x, y, scale = 1) {
         this.ctx.save();
-        this.ctx.shadowBlur = 15;
+        this.ctx.shadowBlur = 15 * scale;
         this.ctx.shadowColor = '#f85149';
         this.ctx.fillStyle = '#f85149';
         this.ctx.beginPath();
-        this.ctx.roundRect(x, y, 10, 25, [2, 0, 0, 2]);
+        this.ctx.roundRect(x, y, 10 * scale, 25 * scale, [2 * scale, 0, 0, 2 * scale]);
         this.ctx.fill();
         this.ctx.restore();
     }

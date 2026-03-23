@@ -88,15 +88,18 @@ body {
     text-shadow: 0 0 10px rgba(88, 166, 255, 0.4);
 }
 
-/* WORKSPACE LAYOUT */
+/* WORKSPACE LAYOUT (DESKTOP) */
 #workspace {
     flex: 1;
-    display: flex;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    grid-template-rows: 45% 55%;
     overflow: hidden;
 }
 
 #sidebar {
-    width: 320px;
+    grid-column: 1;
+    grid-row: 1 / 3;
     background: var(--sidebar-bg);
     border-right: 1px solid var(--border-color);
     display: flex;
@@ -105,10 +108,22 @@ body {
     overflow-y: auto;
 }
 
-#main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+#viz-area {
+    grid-column: 2;
+    grid-row: 1;
+    background: #000;
+    position: relative;
+    border-bottom: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+#diagnostic-grid {
+    grid-column: 2;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background: var(--border-color);
+    gap: 1px;
     overflow: hidden;
 }
 
@@ -256,26 +271,11 @@ button:active {
 }
 
 /* MAIN CONTENT COMPONENTS */
-#viz-area {
-    height: 45%;
-    background: #000;
-    position: relative;
-    border-bottom: 1px solid var(--border-color);
-}
-
 #simulation-canvas {
     width: 100%;
     height: 100%;
 }
 
-#diagnostic-grid {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    background: var(--border-color);
-    gap: 1px;
-    overflow: hidden;
-}
 
 .diag-card {
     background: var(--bg-color);
@@ -522,6 +522,8 @@ button:active {
     animation: slide-log 5s linear infinite;
 }
 
+/* ... existing styles ... */
+
 @keyframes slide-log {
     0% {
         opacity: 0;
@@ -544,7 +546,117 @@ button:active {
     }
 }
 
+/* RESPONSIVE MEDIA QUERIES */
+
+@media (max-width: 1024px) {
+    #diagnostic-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    body, #app {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+    }
+
+    #workspace {
+        display: grid; /* Explicitly use grid for ordering */
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        overflow: visible;
+        height: auto;
+    }
+
+    #sidebar {
+        grid-row: 2; /* Fix order: Animation (1), Controls (2), Stats (3) */
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    #main-header {
+        position: sticky;
+        top: 0;
+        flex-wrap: wrap;
+        height: auto;
+        padding: 10px var(--gutter);
+        gap: 10px;
+    }
+
+    .header-right {
+        text-align: left;
+        width: 100%;
+    }
+
+    #viz-area {
+        grid-row: 1;
+        width: 100%;
+        height: 300px;
+        min-height: 300px;
+    }
+
+    #diagnostic-grid {
+        grid-row: 3;
+        grid-template-columns: 1fr;
+        overflow: visible;
+    }
+
+    .diag-card {
+        min-height: auto;
+    }
+
+    .gauges-flex {
+        flex-direction: column;
+    }
+
+    .gauge-wrapper {
+        width: 100%;
+    }
+
+    .charts-stack {
+        height: 400px;
+    }
+
+    .control-group label {
+        width: 80px;
+    }
+
+    .button-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .btn-danger {
+        grid-column: span 2;
+    }
+
+    #main-footer {
+        flex-direction: column;
+        height: auto;
+        padding: 15px var(--gutter);
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
+
+/* TOUCH OPTIMIZATION */
+@media (pointer: coarse) {
+    button, input[type=range] {
+        min-height: 44px; /* Apple/Google recommended touch target */
+    }
+
+    #throttle-input, #brake-input {
+        height: 30px;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0px; /* Hide scrollbars on touch for cleaner look */
+    }
+}
+
 /* OVERLAYS */
+/* ... existing styles ... */
 .surge-overlay {
     position: absolute;
     top: 50%;
